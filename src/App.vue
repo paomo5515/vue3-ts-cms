@@ -13,12 +13,12 @@
     <hr />
     <div class="slider-demo-block">
       <span class="demonstration">Default value</span>
-      <el-slider v-model="value1" />
+      <el-slider />
     </div>
 
     <hr />
     <div>
-      <el-icon :size="size" :color="color">
+      <el-icon>
         <Edit />
       </el-icon>
     </div>
