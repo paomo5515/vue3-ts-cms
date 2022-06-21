@@ -22,7 +22,33 @@ app.use(router)
 // app.use(ElementPlus)
 app.mount("#app")
 
-qcRequset.request({
-  url: "/home/multidata",
-  method: "GET"
-})
+// qcRequset.request({
+//   url: "/home/multidata",
+//   method: "GET",
+//   interceptors: {
+//     requestInterceptor: (config) => {
+//       console.log("单独请求的config")
+//       return config
+//     },
+//     responseInterceptor: (res) => {
+//       console.log("单独拦截的response")
+//       return res
+//     }
+//   }
+// })
+
+interface DataType {
+  data: any
+  returnCode: string
+  success: boolean
+}
+
+qcRequset
+  .get<DataType>({
+    url: "/home/multidata"
+    // method: "GET"
+    // showLoading: false
+  })
+  .then((res) => {
+    console.log("main-", res)
+  })

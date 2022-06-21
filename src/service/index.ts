@@ -8,6 +8,12 @@ const qcRequset = new QCRequest({
   interceptors: {
     // 请求 拦截
     requestInterceptor: (config) => {
+      // 携带 token 拦截
+      const token = ""
+      if (token) {
+        // config.headers.Authorization = `Bearer ${token}`
+      }
+
       console.log("请求成功的拦截")
       return config
     },

@@ -1,18 +1,30 @@
 {
   "compilerOptions": {
+    // 目标代码 ts -> js(es5/6/7)
     "target": "esnext",
+    // 目标代码需要使用的模块化方案(commonjs )
     "module": "esnext",
+    // 严格一些严格的检查(any)
     "strict": true,
+    // 对 jsx 怎么处理
     "jsx": "preserve",
+    // 按照 node 方式去解析模块 import
     "moduleResolution": "node",
+    // 跳过对一些库的类型检测
     "skipLibCheck": true,
+    // export defaul/module.exports = {}
+    // ex module 和 commonjs
     "esModuleInterop": true,
     "allowSyntheticDefaultImports": true,
+
     "forceConsistentCasingInFileNames": true,
     "useDefineForClassFields": true,
     "sourceMap": true,
+
     "baseUrl": ".",
+    // 指定具体要解析的类型
     "types": ["webpack-env"],
+    // 路径解析
     "paths": {
       "@/*": ["src/*"]
     },

@@ -10,11 +10,6 @@
     <el-button type="primary">Primary</el-button>
     <el-button type="primary">Primary</el-button>
     <el-button type="primary">Primary</el-button>
-    <hr />
-    <div class="slider-demo-block">
-      <span class="demonstration">Default value</span>
-      <el-slider />
-    </div>
 
     <hr />
     <div>
