@@ -1,6 +1,7 @@
 <template>
   <div class="login-panel">
     <h2 class="title">后台管理系统</h2>
+
     <!-- 登陆方式 -->
     <el-tabs type="border-card" class="demo-tabs" stretch>
       <el-tab-pane>
@@ -54,7 +55,7 @@ export default defineComponent({
 
     const handleLoginClick = () => {
       console.log("立即登录")
-      accountRef.value?.loginAction()
+      accountRef.value?.loginAction(isKeepPassword.value)
     }
     return {
       isKeepPassword,
@@ -68,6 +69,10 @@ export default defineComponent({
 <style lang="scss">
 .login-panel {
   width: 320px;
+  .custom-tabs-label {
+    display: flex;
+    align-items: center;
+  }
   .title {
     text-align: center;
   }
