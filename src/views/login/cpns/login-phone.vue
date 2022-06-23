@@ -25,8 +25,13 @@ export default defineComponent({
       code: ""
     })
 
+    const phoneAction = () => {
+      console.log("phoneNum登录")
+    }
+
     return {
-      phone
+      phone,
+      phoneAction
     }
   }
 })

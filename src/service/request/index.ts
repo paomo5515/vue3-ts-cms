@@ -14,13 +14,13 @@ class QCRequest {
   showLoading: boolean
 
   constructor(config: QCRequestConfig) {
-    // 每次创建 用 inisance 保存
+    // 创建 axios 实例
     this.instance = axios.create(config)
     this.showLoading = config.showLoading ?? DEFAULT_LOADING
     this.interceptors = config.interceptors
 
-    // 从 config 取出对应实例的拦截器
-    // 请求
+    // 使用拦截器
+    // 1.从 config 取出对应实例的拦截器
     this.instance.interceptors.request.use(
       this.interceptors?.requestInterceptor,
       this.interceptors?.requestInterceptorCatch
@@ -36,7 +36,7 @@ class QCRequest {
     // 请求
     this.instance.interceptors.request.use(
       (config) => {
-        console.log("所有的实例都有的拦截器：请求拦截成功")
+        // console.log("所有的实例都有的拦截器：请求拦截成功")
         if (this.showLoading) {
           this.loading = ElLoading.service({
             target: "body",
@@ -49,7 +49,7 @@ class QCRequest {
         return config
       },
       (err) => {
-        console.log("所有的实例都有的拦截器：请求拦截失败")
+        // console.log("所有的实例都有的拦截器：请求拦截失败")
         return err
       }
     )
@@ -57,7 +57,7 @@ class QCRequest {
     // 响应
     this.instance.interceptors.response.use(
       (res) => {
-        console.log("所有的实例都有的拦截器：响应成功拦截")
+        // console.log("所有的实例都有的拦截器：响应成功拦截")
 
         // 关闭 loading
         this.loading?.close()
@@ -65,7 +65,7 @@ class QCRequest {
         return res.data
       },
       (err) => {
-        console.log("所有的实例都有的拦截器：响应失败拦截")
+        // console.log("所有的实例都有的拦截器：响应失败拦截")
         return err
       }
     )

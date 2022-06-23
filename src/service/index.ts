@@ -1,34 +1,35 @@
 // service 统一出口
 import QCRequest from "./request"
 import { BASE_URL, TIME_OUT } from "./request/config"
+import localCache from "@/utils/cache"
 
 const qcRequset = new QCRequest({
   baseURL: BASE_URL,
   timeout: TIME_OUT,
   interceptors: {
     // 请求 拦截
-    requestInterceptor: (config) => {
+    requestInterceptor: (config: any) => {
       // 携带 token 拦截
-      const token = ""
+      const token = localCache.getCache("token")
       if (token) {
-        // config.headers.Authorization = `Bearer ${token}`
+        config.headers.Authorization = `Bearer ${token}`
       }
 
-      console.log("请求成功的拦截")
+      // console.log("请求成功的拦截")
       return config
     },
     requestInterceptorCatch: (err) => {
-      console.log("请求失败的拦截")
+      // console.log("请求失败的拦截")
       return err
     },
 
     // 响应 拦截
     responseInterceptor: (res) => {
-      console.log("响应成功的拦截")
+      // console.log("响应成功的拦截")
       return res
     },
     responseInterceptorCatch: (err) => {
-      console.log("响应失败的拦截")
+      // console.log("响应失败的拦截")
       return err
     }
   }

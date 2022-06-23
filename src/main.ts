@@ -12,6 +12,7 @@ import store from "./store"
 import "normalize.css"
 import "./assets/css/index.scss"
 import App from "./App.vue"
+import { setupStore } from "./store"
 
 const app = createApp(App)
 
@@ -22,6 +23,8 @@ registerApp(app)
 app.use(store)
 app.use(router)
 // app.use(ElementPlus)
+
+setupStore()
 app.mount("#app")
 
 // qcRequset.request({

@@ -26,6 +26,15 @@ module.exports = defineConfig({
     port: 6060,
     host: "127.0.0.1",
     open: true,
-    historyApiFallback: true
+    historyApiFallback: true,
+    proxy: {
+      "^/api": {
+        target: "http://152.136.185.210:5000",
+        pathRewrite: {
+          "^/api": ""
+        },
+        changeOrigin: true
+      }
+    }
   }
 })
