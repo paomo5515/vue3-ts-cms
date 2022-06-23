@@ -18,12 +18,16 @@ npm run serve
 npm run build
 ```
 
-### Lints and fixes files
+### 引入 CSS 样式初始化
 
 ```
-npm run lint
+npm i normalize.css
 ```
 
-### Customize configuration
+### 自定义表单验证规则 async-validator
 
-See [Configuration Reference](https://cli.vuejs.org/config/).
+```
+npm i normalize.css
+```
+
+###

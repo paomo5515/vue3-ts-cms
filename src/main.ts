@@ -6,10 +6,12 @@ import { registerApp } from "./global"
 
 // 测试 axios
 // import "./service/axios_demo"
-import qcRequset from "./service"
-import App from "./App.vue"
+// import qcRequset from "./service"
 import router from "./router"
 import store from "./store"
+import "normalize.css"
+import "./assets/css/index.scss"
+import App from "./App.vue"
 
 const app = createApp(App)
 
@@ -37,18 +39,18 @@ app.mount("#app")
 //   }
 // })
 
-interface DataType {
-  data: any
-  returnCode: string
-  success: boolean
-}
+// interface DataType {
+//   data: any
+//   returnCode: string
+//   success: boolean
+// }
 
-qcRequset
-  .get<DataType>({
-    url: "/home/multidata"
-    // method: "GET"
-    // showLoading: false
-  })
-  .then((res) => {
-    console.log("main-", res)
-  })
+// qcRequset
+//   .get<DataType>({
+//     url: "/home/multidata"
+//     // method: "GET"
+//     // showLoading: false
+//   })
+//   .then((res) => {
+//     console.log("main-", res)
+//   })
