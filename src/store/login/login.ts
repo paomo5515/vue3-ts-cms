@@ -1,4 +1,5 @@
 import { Module } from "vuex"
+import { mapMenusToRoutes } from "@/utils/map-menus"
 import { ILoginState } from "./types"
 import { IRootState } from "../types"
 import {
@@ -32,6 +33,14 @@ const loginModule: Module<ILoginState, IRootState> = {
     // 在 vuex 中存储 用户对应 的菜单
     changeUserMenus(state, userMenus: any) {
       state.userMenus = userMenus
+
+      // userMenus 映射 -> routes
+      const routes = mapMenusToRoutes(userMenus)
+
+      // 将 routes 添加到 router -> main -> children
+      routes.forEach((route) => {
+        router.addRoute("main", route)
+      })
     }
   },
   actions: {

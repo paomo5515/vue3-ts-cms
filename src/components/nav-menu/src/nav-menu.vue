@@ -10,7 +10,7 @@
           background-color="lemonchiffon"
           text-color="#333"
           active-text-color="lightcoral"
-          :collapse="collapse"
+          :isCollapse="isCollapse"
         >
           <template v-for="item in userMenus" :key="item.id">
             <!-- 二级菜单 -->
@@ -24,7 +24,10 @@
 
                 <!-- 遍历里面的 item 标题里面的内容 -->
                 <template v-for="subitem in item.children" :key="subitem.id">
-                  <el-menu-item :index="subitem.id + ''">
+                  <el-menu-item
+                    :index="subitem.id + ''"
+                    @click="handleMenuRouter(subitem)"
+                  >
                     <span>{{ subitem.name }}</span>
                   </el-menu-item>
                 </template>
@@ -47,19 +50,26 @@
 
 // 首页菜单
 <script lang="ts" setup>
-import { computed, defineProps } from "vue"
+import { computed, withDefaults, defineProps } from "vue"
 import { useStore } from "@/store"
-
+import { useRouter } from "vue-router"
+interface Props {
+  isCollapse: boolean
+}
+const props = withDefaults(defineProps<Props>(), {
+  isCollapse: false
+})
 // vuex -> pinia
 const store = useStore()
 const userMenus = computed(() => store.state.login.userMenus)
 
-const props = defineProps({
-  collapse: {
-    type: Boolean,
-    default: false
-  }
-})
+// 处理菜单路由
+const router = useRouter()
+const handleMenuRouter = (item: any) => {
+  router.push({
+    path: item.url ?? "./not-found"
+  })
+}
 </script>
 
 <style scoped lang="scss">

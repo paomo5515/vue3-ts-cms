@@ -8,17 +8,21 @@
         <el-header class="page-header">
           <NavHeader @foldChange="handleFoldChange" />
         </el-header>
-        <el-main class="page-container">Main</el-main>
+        <el-main class="page-container">
+          <div class="page-content">
+            <router-view></router-view>
+          </div>
+        </el-main>
       </el-container>
     </el-container>
   </div>
 </template>
 
-// 首页
 <script lang="ts" setup>
 import { ref } from "vue"
-// import NavHeader from "@/components/nav-header"
-// import NavMenu from "@/components/nav-menu"
+
+// import NavHeader from "../../components/nav-header"
+import NavMenu from "@/components/nav-menu"
 
 // menu是否折叠
 const isCollapse = ref(false)
@@ -47,8 +51,10 @@ const handleFoldChange = (isFold: boolean) => {
   .page-container {
     height: calc(100% - 48px);
     text-align: center;
-
-    color: red;
+    .page-content {
+      background-color: rgba(240, 127, 127, 0.3);
+      border-radius: 6px;
+    }
   }
 }
 
