@@ -21,10 +21,11 @@ registerApp(app)
 // app.use(registerApp)
 
 app.use(store)
+setupStore()
 app.use(router)
 // app.use(ElementPlus)
 
-setupStore()
+// 38-1.10.51
 app.mount("#app")
 
 // qcRequset.request({

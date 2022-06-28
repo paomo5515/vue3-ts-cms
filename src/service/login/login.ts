@@ -1,5 +1,6 @@
 import qcRequset from ".."
-import { IAccount, IDataType, ILoginResulte } from "./type"
+import { IAccount, ILoginResulte } from "./type"
+import { IDataType } from "../types"
 
 enum LoginAPI {
   AccountLogin = "/login",

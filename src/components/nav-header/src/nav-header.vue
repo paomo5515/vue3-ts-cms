@@ -8,7 +8,9 @@
     </div>
     <!-- 面包屑 -->
     <div class="content">
-      <div>面包屑</div>
+      <div>
+        <QCBreadcrumb :breadcrumbs="breadcrumbs" />
+      </div>
       <div>
         <UserInfo />
       </div>
@@ -18,9 +20,13 @@
 
 // 首页头部
 <script setup lang="ts">
-import { defineEmits } from "vue"
+import { defineEmits, computed } from "vue"
 import { ref } from "vue"
-import UserInfo from "./user-info.vue"
+import { useStore } from "@/store"
+import { useRoute } from "vue-router"
+// import UserInfo from "./user-info.vue"
+import { QCBreadcrumb } from "@/base-ui/breadcrumb"
+import { pathMapBreadcrumbs } from "@/utils/map-menus"
 
 const isFold = ref(false)
 
@@ -30,6 +36,14 @@ const handleFoldChange = () => {
   isFold.value = !isFold.value
   emit("foldChange", isFold.value)
 }
+
+// 面包屑数据 [{name:,path:}]
+const store = useStore()
+const breadcrumbs = computed(() => {
+  const userMenus = store.state.login.userMenus
+  const route = useRoute().path
+  return pathMapBreadcrumbs(userMenus, route)
+})
 </script>
 
 <style scoped lang="scss">

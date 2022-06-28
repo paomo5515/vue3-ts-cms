@@ -71,7 +71,7 @@ class QCRequest {
     )
   }
 
-  request<T>(config: QCRequestConfig<T>): Promise<T> {
+  request<T = any>(config: QCRequestConfig<T>): Promise<T> {
     return new Promise((reslove, reject) => {
       // 1，单个请求 对请求 config 的处理
       if (config.interceptors?.requestInterceptor) {
@@ -105,19 +105,19 @@ class QCRequest {
     })
   }
 
-  get<T>(config: QCRequestConfig<T>): Promise<T> {
+  get<T = any>(config: QCRequestConfig<T>): Promise<T> {
     return this.request<T>({ ...config, method: "GET" })
   }
 
-  post<T>(config: QCRequestConfig<T>): Promise<T> {
+  post<T = any>(config: QCRequestConfig<T>): Promise<T> {
     return this.request<T>({ ...config, method: "POST" })
   }
 
-  delete<T>(config: QCRequestConfig<T>): Promise<T> {
+  delete<T = any>(config: QCRequestConfig<T>): Promise<T> {
     return this.request<T>({ ...config, method: "DELETE" })
   }
 
-  patch<T>(config: QCRequestConfig<T>): Promise<T> {
+  patch<T = any>(config: QCRequestConfig<T>): Promise<T> {
     return this.request<T>({ ...config, method: "PATCH" })
   }
 }

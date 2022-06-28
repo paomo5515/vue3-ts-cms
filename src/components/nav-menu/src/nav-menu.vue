@@ -10,6 +10,7 @@
           background-color="lemonchiffon"
           text-color="#333"
           active-text-color="lightcoral"
+          :default-active="defaultValue"
           :isCollapse="isCollapse"
         >
           <template v-for="item in userMenus" :key="item.id">
@@ -49,27 +50,51 @@
 </template>
 
 // 首页菜单
-<script lang="ts" setup>
-import { computed, withDefaults, defineProps } from "vue"
+<script lang="ts">
+import { computed, defineComponent, ref } from "vue"
 import { useStore } from "@/store"
-import { useRouter } from "vue-router"
-interface Props {
-  isCollapse: boolean
-}
-const props = withDefaults(defineProps<Props>(), {
-  isCollapse: false
-})
-// vuex -> pinia
-const store = useStore()
-const userMenus = computed(() => store.state.login.userMenus)
+import { useRouter, useRoute } from "vue-router"
+import { pathMapToMenu } from "@/utils/map-menus"
+// interface Props {
+//   isCollapse: boolean
+// }
+export default defineComponent({
+  props: {
+    isCollapse: {
+      type: Boolean,
+      default: false
+    }
+  },
+  // // vuex -> pinia
+  setup() {
+    const store = useStore()
+    const userMenus = computed(() => store.state.login.userMenus)
 
-// 处理菜单路由
-const router = useRouter()
-const handleMenuRouter = (item: any) => {
-  router.push({
-    path: item.url ?? "./not-found"
-  })
-}
+    const router = useRouter()
+    const route = useRoute()
+    const currentPath = route.path
+
+    // data
+    const menu = pathMapToMenu(userMenus.value, currentPath)
+    const defaultValue = ref(menu.id + "")
+
+    // 处理菜单路由
+    const handleMenuRouter = (item: any) => {
+      router.push({
+        path: item.url ?? "./not-found"
+      })
+    }
+    return {
+      userMenus,
+      defaultValue,
+      handleMenuRouter
+    }
+  }
+})
+
+// const props = withDefaults(defineProps<Props>(), {
+//   isCollapse: false
+// })
 </script>
 
 <style scoped lang="scss">
