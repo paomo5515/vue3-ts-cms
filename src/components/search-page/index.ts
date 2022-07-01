@@ -1,3 +1,3 @@
-import SearchPage from "./src/search-page.vue"
+import SearchPage from "./src/page-search.vue"
 
 export default SearchPage

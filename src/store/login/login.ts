@@ -1,5 +1,5 @@
 import { Module } from "vuex"
-import { mapMenusToRoutes } from "@/utils/map-menus"
+import { mapMenusToRoutes, mapMenusToPermissions } from "@/utils/map-menus"
 import { ILoginState } from "./types"
 import { IRootState } from "../types"
 import {
@@ -17,7 +17,8 @@ const loginModule: Module<ILoginState, IRootState> = {
     return {
       token: "",
       userInfo: {},
-      userMenus: []
+      userMenus: [],
+      permissions: []
     }
   },
   getters: {},
@@ -41,6 +42,11 @@ const loginModule: Module<ILoginState, IRootState> = {
       routes.forEach((route) => {
         router.addRoute("main", route)
       })
+
+      // 获取用户按钮的权限
+      const permissions = mapMenusToPermissions(userMenus)
+      // console.log("permissions", permissions)
+      state.permissions = permissions
     }
   },
   actions: {

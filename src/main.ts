@@ -1,5 +1,5 @@
 import { createApp } from "vue"
-import { registerApp } from "./global"
+import { globalRegister } from "./global"
 // 全局引入
 // import ElementPlus from "element-plus"
 // import "element-plus/dist/index.css"
@@ -16,16 +16,15 @@ import { setupStore } from "./store"
 
 const app = createApp(App)
 
-registerApp(app)
+// globalRegister(app)
 // 等价于
-// app.use(registerApp)
+app.use(globalRegister)
 
 app.use(store)
 setupStore()
 app.use(router)
 // app.use(ElementPlus)
 
-// 38-1.10.51
 app.mount("#app")
 
 // qcRequset.request({

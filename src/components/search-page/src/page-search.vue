@@ -6,11 +6,11 @@
       </template>
       <template #footer>
         <div class="search-btn">
-          <el-button class="reset">
+          <el-button class="reset" @click="handleResetClick">
             <el-icon><Refresh /> </el-icon>
             重置
           </el-button>
-          <el-button class="search-data">
+          <el-button class="search-data" @click="handleQuery">
             <el-icon><Search /></el-icon>
             搜索
           </el-button>
@@ -34,15 +34,35 @@ export default defineComponent({
   components: {
     QCForm
   },
-  setup() {
-    const formData = ref({
-      id: "",
-      name: "",
-      password: "",
-      sport: "",
-      createTime: ""
-    })
-    return { formData }
+  // 发出 搜索时间
+  emits: ["resetBtnClick", "queryBtnClick"],
+  setup(props, { emit }) {
+    // 双向绑定的属性应该是由配置文件的 field 来决定
+    const formItems = props.searchFormConfig.formItems ?? []
+    const formOriginData: any = {}
+    for (const item of formItems) {
+      formOriginData[item.field] = ""
+    }
+    const formData = ref(formOriginData)
+
+    // 2.当用户点击 重置按钮
+    const handleResetClick = () => {
+      for (const key in formOriginData) {
+        formData.value[`${key}`] = formOriginData[key]
+      }
+      emit("resetBtnClick")
+    }
+
+    // 3.用户点击搜索
+    const handleQuery = () => {
+      // console.log("serarch")
+      emit("queryBtnClick", formData.value)
+    }
+    return {
+      formData,
+      handleResetClick,
+      handleQuery
+    }
   }
 })
 </script>

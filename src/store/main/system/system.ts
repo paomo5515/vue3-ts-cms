@@ -1,34 +1,98 @@
 import { Module } from "vuex"
 import { IRootState } from "../../types"
 import { ISystemState } from "./types"
-import { getPageListData } from "@/service/main/system/system"
+import { getPageListData, deletePageData } from "@/service/main/system/system"
 
 const systemModule: Module<ISystemState, IRootState> = {
   namespaced: true,
   state() {
     return {
-      userList: [],
-      userCount: 0
+      usersList: [],
+      usersCount: 0,
+      roleList: [],
+      roleCount: 0,
+      goodsList: [],
+      goodsCount: 0,
+      menuList: [],
+      menuCount: 0
     }
   },
   mutations: {
-    changeUserList(state, userList: any) {
-      state.userList = userList
+    changeUsersList(state, userList: any) {
+      state.usersList = userList
     },
-    changeUserCount(state, userCount: number) {
-      state.userCount = userCount
+    changeUsersCount(state, userCount: number) {
+      state.usersCount = userCount
+    },
+    changeRoleList(state, list: any) {
+      state.roleList = list
+    },
+    changeRoleCount(state, count: number) {
+      state.roleCount = count
+    },
+    changeGoodsList(state, list: any) {
+      state.goodsList = list
+    },
+    changeGoodsCount(state, count: number) {
+      state.goodsCount = count
+    },
+    changeMenuList(state, list: any) {
+      state.menuList = list
+    },
+    changeMenuCount(state, count: number) {
+      state.menuCount = count
+    }
+  },
+  getters: {
+    pageListData(state) {
+      return (pageName: string) => {
+        return (state as any)[`${pageName}List`]
+      }
+    },
+    pageListCount(state) {
+      return (pageName: string) => {
+        return (state as any)[`${pageName}Count`]
+      }
     }
   },
   actions: {
     async getPageListAction({ commit }, payload: any) {
-      // 1.对页面发送网络请求
-      const pageResult = await getPageListData(
-        payload.pageUrl,
-        payload.queryInfo
-      )
+      // 2.获取 pageUrl
+      const pageName = payload.pageName
+
+      const pageUrl = `/${pageName}/list`
+
+      // 2.对页面发送网络请求
+      const pageResult = await getPageListData(pageUrl, payload.queryInfo)
+
+      // console.log(pageResult, "--------")
+      // 3.将数据存储到 state中
       const { list, totalCount } = pageResult.data
-      commit("changeUserList", list)
-      commit("changeUserCount", totalCount)
+
+      const chnagePageName =
+        pageName.slice(0, 1).toUpperCase() + pageName.slice(1)
+      commit(`change${chnagePageName}List`, list)
+      commit(`change${chnagePageName}Count`, totalCount)
+    },
+
+    // 删除数据
+    async deletePageDataAction({ dispatch }, payload: any) {
+      // 1.获取 pageName 和 id
+      const { pageName, id } = payload
+      const pageUrl = `/${pageName}/${id}`
+      console.log(pageUrl)
+
+      // 2.调用删除的 网络请求
+      await deletePageData(pageUrl)
+
+      // 3.重新请求 最新的网络数据
+      dispatch("getPageListAction", {
+        pageName,
+        queryInfo: {
+          offset: 0,
+          size: 10
+        }
+      })
     }
   }
 }

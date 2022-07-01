@@ -74,8 +74,8 @@ export default defineComponent({
     colLayout: {
       type: Object,
       default: () => ({
-        xl: 6, // > 1920px
-        lg: 6,
+        xl: 4, // > 1920px
+        lg: 8,
         md: 12,
         sm: 24,
         xs: 24

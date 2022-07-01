@@ -4,12 +4,6 @@ import login from "./login/login"
 import system from "./main/system/system"
 
 const store = createStore<IRootState>({
-  state() {
-    return {
-      name: "hello",
-      age: 18
-    }
-  },
   modules: {
     login,
     system
