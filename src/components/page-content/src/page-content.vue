@@ -8,7 +8,9 @@
     >
       <!-- header中的插槽 -->
       <template #headerHandler>
-        <el-button v-if="isCreate" type="primary">新建用户</el-button>
+        <el-button v-if="isCreate" type="primary" @click="handleNewClick"
+          >新建用户</el-button
+        >
       </template>
 
       <!-- 列中的插槽 -->
@@ -31,7 +33,13 @@
       </template>
       <template #handler="scope">
         <div class="handler-btns">
-          <el-button v-if="isUpdate" size="small" type="warning" link>
+          <el-button
+            v-if="isUpdate"
+            size="small"
+            type="warning"
+            link
+            @click="handleEditClick(scope.row)"
+          >
             <el-icon><EditPen /></el-icon>
             编辑
           </el-button>
@@ -82,7 +90,8 @@ export default defineComponent({
       required: true
     }
   },
-  setup(props) {
+  emits: ["handleNewClick", "handleEditClick"],
+  setup(props, { emit }) {
     const store = useStore()
 
     // 0.获取操作的权限
@@ -134,11 +143,20 @@ export default defineComponent({
 
     // 5.删除/编辑/新建操作
     const handleDeleteClick = (item: any) => {
-      console.log(item)
       store.dispatch("system/deletePageDataAction", {
         pageName: props.pageName,
         id: item.id
       })
+    }
+
+    // 6.编辑/新建操作
+    // 发射事件 向父组件
+    const handleNewClick = () => {
+      emit("handleNewClick")
+    }
+
+    const handleEditClick = (item: any) => {
+      emit("handleEditClick", item)
     }
 
     return {
@@ -150,7 +168,9 @@ export default defineComponent({
       pageInfo,
       otherPropSlots,
       getPageData,
-      handleDeleteClick
+      handleDeleteClick,
+      handleNewClick,
+      handleEditClick
     }
   }
 })

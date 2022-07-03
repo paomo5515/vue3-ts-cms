@@ -47,12 +47,11 @@
     <div class="footer" v-if="showFooter">
       <slot name="footer">
         <el-pagination
-          currentPage="page.currentPage"
+          :currentPage="page.currentPage"
           :page-size="page.pageSize"
           :page-sizes="[10, 20, 30]"
-          :small="small"
-          :disabled="disabled"
-          :background="background"
+          small="small"
+          background="background"
           layout="total, sizes, prev, pager, next, jumper"
           :total="listCount"
           @size-change="handleSizeChange"

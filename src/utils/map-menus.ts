@@ -81,4 +81,22 @@ export function mapMenusToPermissions(userMenus: any[]) {
   return permissions
 }
 
+// 映射 编辑操作 用户的权限
+export function mapMenuLeafKeys(menuList: any[]) {
+  const leafKeys: number[] = []
+
+  const _recurseGetLeaf = (menuList: any[]) => {
+    for (const menu of menuList) {
+      if (menu.childern) {
+        _recurseGetLeaf(menu.childern)
+      } else {
+        leafKeys.push(menu.id)
+      }
+    }
+  }
+  _recurseGetLeaf(menuList)
+
+  return leafKeys
+}
+
 export { firstMenu }

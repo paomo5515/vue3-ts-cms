@@ -21,7 +21,7 @@
 <script lang="ts" setup>
 import { ref } from "vue"
 
-// import NavHeader from "../../components/nav-header"
+// import NavHeader from "@/components/nav-header"
 import NavMenu from "@/components/nav-menu"
 
 // menu是否折叠

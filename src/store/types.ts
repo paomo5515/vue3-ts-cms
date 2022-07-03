@@ -1,11 +1,14 @@
 import { ILoginState } from "./login/types"
 import { ISystemState } from "./main/system/types"
 
+// 根状态
 interface IRootState {
-  name: string
-  age: number
+  entireDepartment: any[]
+  entireRole: any[]
+  entirMenu: any[]
 }
 
+// 模块状态
 interface IRootWithModule {
   login: ILoginState
   system: ISystemState
