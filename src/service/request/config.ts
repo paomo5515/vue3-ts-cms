@@ -3,9 +3,9 @@ const TIME_OUT = 10000
 if (process.env.NODE_ENV === "development") {
   BASE_URL = "/api"
 } else if (process.env.NODE_ENV === "production") {
-  BASE_URL = "httl://hello.org/pro"
+  BASE_URL = "/api"
 } else {
-  BASE_URL = "httl://hello.org/test"
+  BASE_URL = "/api"
 }
 
 export { BASE_URL, TIME_OUT }

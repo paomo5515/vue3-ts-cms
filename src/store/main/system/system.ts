@@ -85,7 +85,7 @@ const systemModule: Module<ISystemState, IRootState> = {
       // 1.获取 pageName 和 id
       const { pageName, id } = payload
       const pageUrl = `/${pageName}/${id}`
-      console.log(pageUrl)
+      // console.log(pageUrl)
 
       // 2.调用删除的 网络请求
       await deletePageData(pageUrl)
